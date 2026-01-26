@@ -171,12 +171,12 @@ void gl_depth_sim::SimDepthCamera::initGLFW()
     throw std::runtime_error("Failed to initialize GLAD");
   }
 
-  std::cout << "GL_VERSION: " << GLVersion.major << "." << GLVersion.minor << "\n";
+  // std::cout << "GL_VERSION: " << GLVersion.major << "." << GLVersion.minor << "\n";
 
   // Enable clipping [0, 1]
   if (GLAD_GL_ARB_clip_control)
   {
-    std::cout << "Clip control supported\n";
+    // std::cout << "Clip control supported\n";
     glClipControl(GL_LOWER_LEFT, GL_ZERO_TO_ONE);
   }
   else
