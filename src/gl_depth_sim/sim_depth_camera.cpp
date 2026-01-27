@@ -116,6 +116,12 @@ gl_depth_sim::DepthImage gl_depth_sim::SimDepthCamera::render(const Eigen::Isome
 
 bool gl_depth_sim::SimDepthCamera::add(const std::string mesh_id, const Mesh& mesh, const Eigen::Isometry3d& pose)
 {
+  if (objects_.find(mesh_id) != objects_.end())
+  {
+    std::cerr << "[gl_depth_sim] ERROR: add() reusing mesh_id='" << mesh_id
+              << "' (overwriting existing object)\n";
+  }
+
   std::unique_ptr<RenderableMesh> renderable_mesh (new RenderableMesh{mesh});
 
   RenderableObjectState state;
@@ -129,6 +135,13 @@ bool gl_depth_sim::SimDepthCamera::add(const std::string mesh_id, const Mesh& me
 bool gl_depth_sim::SimDepthCamera::add( const Mesh& mesh, const Eigen::Isometry3d& pose)
 {
   const std::string mesh_id = "mesh" + std::to_string(rand()%1000);
+
+  if (objects_.find(mesh_id) != objects_.end())
+  {
+    std::cerr << "[gl_depth_sim] ERROR: random mesh_id collision for mesh_id='" << mesh_id
+              << "' (rand()%1000). Overwriting existing object.\n";
+  }
+
   std::unique_ptr<RenderableMesh> renderable_mesh (new RenderableMesh{mesh});
 
   RenderableObjectState state;
