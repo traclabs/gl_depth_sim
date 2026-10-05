@@ -61,13 +61,12 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 )
 target_include_directories(gl_depth_sim
   PRIVATE
-    ${pcl_conversions_INCLUDE_DIRS}
     ${OpenCV_INCLUDE_DIRS}
 )
 
 target_link_libraries(gl_depth_sim
   PRIVATE
-    ${pcl_conversions_LIBRARIES}
+    pcl_conversions::pcl_conversions
     ${OpenCV_LIBS}
 )
 
@@ -133,14 +132,11 @@ target_link_libraries(${PROJECT_NAME}_orbit
 # Example showing orbiting camera with point cloud publishing in ROS
 add_executable(${PROJECT_NAME}_ros_orbit src/camera_ros_example.cpp)
 set_target_properties(${PROJECT_NAME}_ros_orbit PROPERTIES OUTPUT_NAME ros_example PREFIX "")
-target_include_directories(${PROJECT_NAME}_ros_orbit PRIVATE
-  ${pcl_conversions_INCLUDE_DIRS}
-)
 target_link_libraries(${PROJECT_NAME}_ros_orbit
   ${PROJECT_NAME}
   ${PROJECT_NAME}_interfaces
   ${sensor_msgs_TARGETS}
-  ${pcl_conversions_LIBRARIES}
+  pcl_conversions::pcl_conversions
   tf2_ros::tf2_ros
   tf2_eigen::tf2_eigen
 )
@@ -148,12 +144,9 @@ target_link_libraries(${PROJECT_NAME}_ros_orbit
 # Example showing sweeping laser scan with point cloud publishing in ROS
 add_executable(${PROJECT_NAME}_laser_example src/laser_example.cpp)
 set_target_properties(${PROJECT_NAME}_laser_example PROPERTIES OUTPUT_NAME laser_example PREFIX "")
-target_include_directories(${PROJECT_NAME}_laser_example PRIVATE
-  ${pcl_conversions_INCLUDE_DIRS}
-)
 target_link_libraries(${PROJECT_NAME}_laser_example
   ${PROJECT_NAME}_sim_laser_scanner
-  ${pcl_conversions_LIBRARIES}
+  pcl_conversions::pcl_conversions
   tf2_ros::tf2_ros
   tf2_eigen::tf2_eigen
   ${visualization_msgs_TARGETS}
