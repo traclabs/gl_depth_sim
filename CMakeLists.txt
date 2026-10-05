@@ -23,7 +23,7 @@ find_package(Eigen3 REQUIRED)
 
 # Extensions
 find_package(assimp REQUIRED) # Just used for loading models in mesh_loader.h
-find_package(OpenCV REQUIRED) # Used for interface extension
+find_package(OpenCV REQUIRED COMPONENTS core imgcodecs highgui) # Used for interface extension
 
 find_package(sensor_msgs REQUIRED)
 
