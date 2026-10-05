@@ -6,7 +6,7 @@
 #include <pcl_conversions/pcl_conversions.h>
 #include <rclcpp/rclcpp.hpp>
 
-#include <tf2_ros/transform_broadcaster.h>
+#include <tf2_ros/transform_broadcaster.hpp>
 #include <tf2_eigen/tf2_eigen.hpp>
 
 #include <opencv2/highgui/highgui.hpp>
@@ -96,6 +96,9 @@ int main(int argc, char** argv)
   // In the main (rendering) thread, begin orbiting...
   const auto start = std::chrono::steady_clock::now();
 
+  rclcpp::executors::SingleThreadedExecutor executor;
+  executor.add_node(node);
+
   while (rclcpp::ok())
   {
     double dt = std::chrono::duration<double>(std::chrono::steady_clock::now() - start).count();
@@ -137,7 +140,7 @@ int main(int argc, char** argv)
     gl_depth_sim::toCvImage16u(depth_img, img);
     cv::imwrite("img.png", img);
 
-    rclcpp::spin_some(node);
+    executor.spin_some();
   }
 
   return 0;
