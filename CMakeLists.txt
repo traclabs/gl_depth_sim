@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.16)
 project(gl_depth_sim)
 
 set(CMAKE_CXX_STANDARD 14)
